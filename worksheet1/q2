@@ -1,0 +1,27 @@
+import numpy as np
+ 
+def rref(M):
+        lead = 0
+        M1 = np.copy(M)
+        rowCount = len(M1)
+        columnCount = len(M1[0])
+        for r in range(rowCount):
+                if lead >= columnCount:
+                        return
+                i = r
+                while (M1[i][lead] == 0):
+                        i += 1
+                        if (i == rowCount):
+                                i = r
+                                lead += 1
+                                if (columnCount == lead):
+                                        return
+                M1[[r,i]] = M1[[i,r]]
+ 
+                if (M1[r][lead] != 0):
+                        M1[r] = M1[r]/M1[r][lead]
+                for i in range (rowCount):
+                        if (i != r):
+                                M1[i] = M1[i] - M1[i][lead]*M1[r]
+                lead += 1
+        return M1
